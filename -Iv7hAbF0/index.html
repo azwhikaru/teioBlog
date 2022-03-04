@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>在 Android 6.0 + 实现动态申请权限 | NTBO</title>
+<meta name="description" content="无敌的帝王传说，即将开演！">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://azwhikaru.github.io/favicon.ico?v=1646414610387">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://azwhikaru.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://azwhikaru.github.io">
+        <img class="avatar" src="https://azwhikaru.github.io/images/avatar.png?v=1646414610387" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://azwhikaru.github.io">
+        <h1 class="site-title">NTBO</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">在 Android 6.0 + 实现动态申请权限</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2022-03-05</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://azwhikaru.github.io/Zgzd5BMsQ/">
+                    Android
+                    
+                      ，
+                    
+                  </a>
+                
+                  <a href="https://azwhikaru.github.io/sWlrIgaOzy/">
+                    Java
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <ul>
+<li>在 <code>AndroidManifest.xml</code> 定义所需权限</li>
+</ul>
+<pre><code class="language-xml">&lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;
+&lt;uses-permission android:name=&quot;android.permission.CHANGE_WIFI_STATE&quot;/&gt;
+&lt;uses-permission android:name=&quot;android.permission.ACCESS_COARSE_LOCATION&quot;/&gt;
+&lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot;/&gt;
+</code></pre>
+<ul>
+<li>然后在启动 Activity 创建变量，其中字符串数组内为需要的所有权限</li>
+</ul>
+<pre><code class="language-java">private static final String[] REQUEST_PERMISSIONS = {Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
+private static final int REQUEST_PERMISSIONS_CODE = 1;
+</code></pre>
+<ul>
+<li>请求权限</li>
+</ul>
+<pre><code class="language-java">private void getRequestPermission() {
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.M) {
+        ActivityCompat.requestPermissions(MainActivity.this,REQUEST_PERMISSIONS,REQUEST_PERMISSIONS_CODE);
+    }
+} // API 是否高于 Android 6.0 （需要动态申请）
+
+@Override
+public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    switch (requestCode) {
+        case REQUEST_PERMISSIONS_CODE:
+            // 第一次权限请求失败
+            if (grantResults.length == REQUEST_PERMISSIONS.length) {
+                for (int result : grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        // 弹出对话框引导设置
+                        showDialog();
+                        Toast.makeText(MainActivity.this, &quot;请求权限被拒绝&quot;, Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                }
+            } else {
+                Toast.makeText(MainActivity.this, &quot;已授权&quot;, Toast.LENGTH_LONG).show();
+            }
+            break;
+    }
+} // 第一次弹出申请
+
+private void showDialog(){
+    AlertDialog dialog = new AlertDialog.Builder(this)
+            .setMessage(&quot;未授予本程序运行所需的权限，请去设置内授予&quot;)
+            .setPositiveButton(&quot;好&quot;, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    goToAppSetting();
+                }
+            })
+            .setNegativeButton(&quot;取消&quot;, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            })
+            .setCancelable(false)
+            .show();
+} // 如果第一次申请失败
+
+private void goToAppSetting(){
+    Intent intent = new Intent();
+    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+    Uri uri = Uri.fromParts(&quot;package&quot;, getPackageName(), null);
+    intent.setData(uri);
+    startActivity(intent);
+} // 跳转到当前应用的设置界面 （手工给予）
+</code></pre>
+<ul>
+<li>最后在 <code>setContentView()</code> 后面调用 <code>getRequestPermission()</code> 即可</li>
+</ul>
+<pre><code class="language-java">@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.first_activity);
+
+    // 获取需要的权限
+    getRequestPermission();
+}
+</code></pre>
+
+          </div>
+        </div>
+
+        
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">无敌的帝王传说，即将开演！</div>
+  <div class="social-container">
+    
+      
+        <a href="https://www.github.com/azwhikaru" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Tokai Teio | <a class="rss" href="https://azwhikaru.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
