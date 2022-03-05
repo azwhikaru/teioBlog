@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://azwhikaru.github.io</id>
-    <title>Notebook</title>
-    <updated>2022-03-05T02:18:32.267Z</updated>
+    <title>NTBO</title>
+    <updated>2022-03-05T02:22:19.587Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://azwhikaru.github.io"/>
     <link rel="self" href="https://azwhikaru.github.io/atom.xml"/>
     <subtitle>无敌的帝王传说，即将开演！</subtitle>
     <logo>https://azwhikaru.github.io/images/avatar.png</logo>
     <icon>https://azwhikaru.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2022, Notebook</rights>
+    <rights>All rights reserved 2022, NTBO</rights>
     <entry>
         <title type="html"><![CDATA[在 Android 9.0 + 使用 HTTP 请求]]></title>
         <id>https://azwhikaru.github.io/wD98AVhHn/</id>
