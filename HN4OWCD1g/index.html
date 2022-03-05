@@ -2,18 +2,25 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>在 Android 9.0 + 使用 HTTP 请求 | NTBO</title>
+<title>Android 原生样式加载框 | NTBO</title>
 <link rel="shortcut icon" href="https://azwhikaru.github.io/favicon.ico?v=1646454305434">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://azwhikaru.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="在 Android 9.0 + 使用 HTTP 请求 | NTBO - Atom Feed" href="https://azwhikaru.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="Android 原生样式加载框 | NTBO - Atom Feed" href="https://azwhikaru.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
     <meta name="description" content="
-为了安全，在 Android 9.0 + 之后 Google 禁止了所有非 HTTPS 请求。会报错 not permitted
-直接在 AndroidManifest.xml 的 &lt;application&gt; 里插入andro..." />
+全局变量
+
+private ProgressDialog progressDialog;
+
+
+显示
+
+public void showProgressDialog (String Title, String Message){
+    p..." />
     <meta name="keywords" content="Android,Java" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -58,7 +65,7 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              在 Android 9.0 + 使用 HTTP 请求
+              Android 原生样式加载框
             </h2>
             <div class="post-info">
               <span>
@@ -81,11 +88,26 @@
             <div class="post-content-wrapper">
               <div class="post-content">
                 <ul>
-<li>为了安全，在 <code>Android 9.0 +</code> 之后 Google 禁止了所有非 HTTPS 请求。会报错 <code>not permitted</code></li>
-<li>直接在 <code>AndroidManifest.xml</code> 的 <code>&lt;application&gt;</code> 里插入<pre><code>android:usesCleartextTraffic=&quot;true&quot;
-</code></pre>
-就可以正常使用非 HTTPS 请求了</li>
+<li>全局变量</li>
 </ul>
+<pre><code class="language-java">private ProgressDialog progressDialog;
+</code></pre>
+<ul>
+<li>显示</li>
+</ul>
+<pre><code class="language-java">public void showProgressDialog (String Title, String Message){
+    progressDialog = new ProgressDialog(this);
+    progressDialog.setTitle(Title);
+    progressDialog.setMessage(Message);
+    progressDialog.setCancelable(false);
+    progressDialog.show();
+}
+</code></pre>
+<ul>
+<li>销毁</li>
+</ul>
+<pre><code class="language-java">progressDialog.cancel();
+</code></pre>
 
               </div>
               <div class="toc-container">
@@ -98,9 +120,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://azwhikaru.github.io/-Iv7hAbF0/">
+            <a href="https://azwhikaru.github.io/vF9bpMdsd/">
               <h3 class="post-title">
-                在 Android 6.0 + 实现动态申请权限
+                在 WebView 中获取网页内容 (HTML 代码)
               </h3>
             </a>
           </div>
