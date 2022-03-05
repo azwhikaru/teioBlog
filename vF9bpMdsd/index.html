@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>在 WebView 中获取网页内容 (HTML 代码) | NTBO</title>
-<link rel="shortcut icon" href="https://azwhikaru.github.io/favicon.ico?v=1646452440806">
+<link rel="shortcut icon" href="https://azwhikaru.github.io/favicon.ico?v=1646453880778">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://azwhikaru.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="在 WebView 中获取网页内容 (HTML 代码) | NTBO - Atom Feed" href="https://azwhikaru.github.io/atom.xml">
@@ -12,13 +12,10 @@
 
 
     <meta name="description" content="
-要获取的网页中使用了 onload 事件:
+在 Layout 中创建一个 WebView
+在调用 WebView 的方法前加
 
-onload 属性在对象已加载时触发。
-onload 常用在 &lt;body&gt; 中，一旦完全加载所有内容（包括图像、脚本文件、CSS 文件等），就执行一段脚本。
-
-
-所以，网页的本体上..." />
+@SuppressLint({&quot;JavascriptInterface&quot;, &quot;SetJavaScriptEnabled&qu..." />
     <meta name="keywords" content="Android,Java" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -28,7 +25,7 @@ onload 常用在 &lt;body&gt; 中，一旦完全加载所有内容（包括图�
       <div class="main-content">
         <div class="site-header">
   <a href="https://azwhikaru.github.io">
-  <img class="avatar" src="https://azwhikaru.github.io/images/avatar.png?v=1646452440806" alt="">
+  <img class="avatar" src="https://azwhikaru.github.io/images/avatar.png?v=1646453880778" alt="">
   </a>
   <h1 class="site-title">
     NTBO
@@ -70,7 +67,7 @@ onload 常用在 &lt;body&gt; 中，一旦完全加载所有内容（包括图�
                 2022-03-05
               </span>
               <span>
-                3 min read
+                2 min read
               </span>
               
                 <a href="https://azwhikaru.github.io/Zgzd5BMsQ/" class="post-tag">
@@ -86,13 +83,6 @@ onload 常用在 &lt;body&gt; 中，一旦完全加载所有内容（包括图�
             <div class="post-content-wrapper">
               <div class="post-content">
                 <ul>
-<li>要获取的网页中使用了 <code>onload</code> 事件:</li>
-</ul>
-<pre><code>onload 属性在对象已加载时触发。
-onload 常用在 &lt;body&gt; 中，一旦完全加载所有内容（包括图像、脚本文件、CSS 文件等），就执行一段脚本。
-</code></pre>
-<ul>
-<li>所以，网页的本体上是没有内容的，所有的内容、文字是在网页加载完成后，使用 <code>onload=&quot;LoadData()&quot;</code> 来触发显示的，那么自然不能直接用最简单的 GET 方式获得源码，而是用 WebView 通过类似浏览器中 &quot;检查&quot; 的方法，使它先加载渲染完，再把 &quot;元素&quot; 提取出来</li>
 <li>在 Layout 中创建一个 WebView</li>
 <li>在调用 WebView 的方法前加</li>
 </ul>
