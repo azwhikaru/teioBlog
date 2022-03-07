@@ -2,26 +2,18 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Android 原生样式加载框 | NTBO</title>
+<title>绕过系统代理使用 Python requests.XXX | NTBO</title>
 <link rel="shortcut icon" href="https://azwhikaru.github.io/favicon.ico?v=1646664240388">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://azwhikaru.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Android 原生样式加载框 | NTBO - Atom Feed" href="https://azwhikaru.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="绕过系统代理使用 Python requests.XXX | NTBO - Atom Feed" href="https://azwhikaru.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="
-全局变量
-
-private ProgressDialog progressDialog;
-
-
-显示
-
-public void showProgressDialog (String Title, String Message){
-    p..." />
-    <meta name="keywords" content="Android,Java" />
+    <meta name="description" content="bypass_systemProxy = { &quot;http&quot;: None, &quot;https&quot;: None}
+requests.get(&quot;https://azwhikaru.github.io/&..." />
+    <meta name="keywords" content="Python" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -59,48 +51,26 @@ public void showProgressDialog (String Title, String Message){
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              Android 原生样式加载框
+              绕过系统代理使用 Python requests.XXX
             </h2>
             <div class="post-info">
               <span>
-                2022-03-05
+                2022-03-07
               </span>
               <span>
                 1 min read
               </span>
               
-                <a href="https://azwhikaru.github.io/Zgzd5BMsQ/" class="post-tag">
-                  # Android
-                </a>
-              
-                <a href="https://azwhikaru.github.io/sWlrIgaOzy/" class="post-tag">
-                  # Java
+                <a href="https://azwhikaru.github.io/kji6uUDsR/" class="post-tag">
+                  # Python
                 </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <ul>
-<li>全局变量</li>
-</ul>
-<pre><code class="language-java">private ProgressDialog progressDialog;
-</code></pre>
-<ul>
-<li>显示</li>
-</ul>
-<pre><code class="language-java">public void showProgressDialog (String Title, String Message){
-    progressDialog = new ProgressDialog(this);
-    progressDialog.setTitle(Title);
-    progressDialog.setMessage(Message);
-    progressDialog.setCancelable(false);
-    progressDialog.show();
-}
-</code></pre>
-<ul>
-<li>销毁</li>
-</ul>
-<pre><code class="language-java">progressDialog.cancel();
+                <pre><code class="language-python">bypass_systemProxy = { &quot;http&quot;: None, &quot;https&quot;: None}
+requests.get(&quot;https://azwhikaru.github.io/&quot;, proxies=bypass_systemProxy)
 </code></pre>
 
               </div>
@@ -114,9 +84,9 @@ public void showProgressDialog (String Title, String Message){
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://azwhikaru.github.io/vF9bpMdsd/">
+            <a href="https://azwhikaru.github.io/HN4OWCD1g/">
               <h3 class="post-title">
-                在 WebView 中获取网页内容 (HTML 代码)
+                Android 原生样式加载框
               </h3>
             </a>
           </div>
