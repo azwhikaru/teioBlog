@@ -1,242 +1,266 @@
-
 <!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
+    <meta charset="utf-8" >
 
 <title>Java | NTBO</title>
 <meta name="description" content="无敌的帝王传说，即将开演！">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+<link rel="shortcut icon" href="https://note.teio.tk/favicon.ico?v=1650090043868">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://note.teio.tk/favicon.ico?v=1650089894545">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://note.teio.tk/styles/main.css">
 
 
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://note.teio.tk">
-        <img class="avatar" src="https://note.teio.tk/images/avatar.png?v=1650089894545" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://note.teio.tk">
-        <h1 class="site-title">NTBO</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
-      </transition>
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://note.teio.tk">NTBO</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+      </ul>
     </div>
   </div>
-</div>
+</nav>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <h2 class="current-tag">标签: Java</h2>
+          
+  <article class="article">
+    <h2 class="article-title">
+      <a href="https://note.teio.tk/HN4OWCD1g/">Android 原生样式加载框</a>
+    </h2>
+    <p class="article-meta">
+      2022-03-05
       
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
-
-        <div class="current-tag-container">
-          <h2 class="title">
-            <i class="icon icon-pricetags-outline"></i> Java
-          </h2> 
-        </div>
-
-        
-<section class="post-item">
-    <div class="content">
-      <a href="https://note.teio.tk/HN4OWCD1g/">
-        <h2 class="post-title">Android 原生样式加载框</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2022-03-05</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://note.teio.tk/Zgzd5BMsQ/">
-                Android
-                
-                  ，
-                
-              </a>
-            
-              <a href="https://note.teio.tk/sWlrIgaOzy/">
-                Java
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://note.teio.tk/vF9bpMdsd/">
-        <h2 class="post-title">在 WebView 中获取网页内容 (HTML 代码)</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2022-03-05</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://note.teio.tk/Zgzd5BMsQ/">
-                Android
-                
-                  ，
-                
-              </a>
-            
-              <a href="https://note.teio.tk/sWlrIgaOzy/">
-                Java
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://note.teio.tk/wD98AVhHn/">
-        <h2 class="post-title">在 Android 9.0 + 使用 HTTP 请求</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2022-03-05</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://note.teio.tk/Zgzd5BMsQ/">
-                Android
-                
-                  ，
-                
-              </a>
-            
-              <a href="https://note.teio.tk/sWlrIgaOzy/">
-                Java
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://note.teio.tk/-Iv7hAbF0/">
-        <h2 class="post-title">在 Android 6.0 + 实现动态申请权限</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2022-03-05</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://note.teio.tk/Zgzd5BMsQ/">
-                Android
-                
-                  ，
-                
-              </a>
-            
-              <a href="https://note.teio.tk/sWlrIgaOzy/">
-                Java
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-
-<div class="pagination-container">
-  
-  
-</div>
-
-
-      </div>
-
-      <div class="site-footer">
-  <div class="slogan">无敌的帝王传说，即将开演！</div>
-  <div class="social-container">
-    
-      
-        <a href="https://www.github.com/azwhikaru" target="_blank">
-          <i class="fab fa-github"></i>
+        <a href="https://note.teio.tk/Zgzd5BMsQ/" class="badge secondary">
+          Android
         </a>
       
-    
+        <a href="https://note.teio.tk/sWlrIgaOzy/" class="badge ">
+          Java
+        </a>
       
-    
+    </p>
+    <p class="text-lead">
       
-    
+    </p>
+    <div class="row">
+      <a href="https://note.teio.tk/HN4OWCD1g/" class="readmore-link">
+        <button>
+          Read More
+        </button>
+      </a>
+    </div>
+  </article>
+
+  <article class="article">
+    <h2 class="article-title">
+      <a href="https://note.teio.tk/vF9bpMdsd/">在 WebView 中获取网页内容 (HTML 代码)</a>
+    </h2>
+    <p class="article-meta">
+      2022-03-05
       
-    
+        <a href="https://note.teio.tk/Zgzd5BMsQ/" class="badge warning">
+          Android
+        </a>
       
-    
-  </div>
-  Tokai Teio | <a class="rss" href="https://note.teio.tk/atom.xml" target="_blank">RSS</a>
+        <a href="https://note.teio.tk/sWlrIgaOzy/" class="badge secondary">
+          Java
+        </a>
+      
+    </p>
+    <p class="text-lead">
+      
+    </p>
+    <div class="row">
+      <a href="https://note.teio.tk/vF9bpMdsd/" class="readmore-link">
+        <button>
+          Read More
+        </button>
+      </a>
+    </div>
+  </article>
+
+  <article class="article">
+    <h2 class="article-title">
+      <a href="https://note.teio.tk/wD98AVhHn/">在 Android 9.0 + 使用 HTTP 请求</a>
+    </h2>
+    <p class="article-meta">
+      2022-03-05
+      
+        <a href="https://note.teio.tk/Zgzd5BMsQ/" class="badge warning">
+          Android
+        </a>
+      
+        <a href="https://note.teio.tk/sWlrIgaOzy/" class="badge secondary">
+          Java
+        </a>
+      
+    </p>
+    <p class="text-lead">
+      
+    </p>
+    <div class="row">
+      <a href="https://note.teio.tk/wD98AVhHn/" class="readmore-link">
+        <button>
+          Read More
+        </button>
+      </a>
+    </div>
+  </article>
+
+  <article class="article">
+    <h2 class="article-title">
+      <a href="https://note.teio.tk/-Iv7hAbF0/">在 Android 6.0 + 实现动态申请权限</a>
+    </h2>
+    <p class="article-meta">
+      2022-03-05
+      
+        <a href="https://note.teio.tk/Zgzd5BMsQ/" class="badge secondary">
+          Android
+        </a>
+      
+        <a href="https://note.teio.tk/sWlrIgaOzy/" class="badge ">
+          Java
+        </a>
+      
+    </p>
+    <p class="text-lead">
+      
+    </p>
+    <div class="row">
+      <a href="https://note.teio.tk/-Iv7hAbF0/" class="readmore-link">
+        <button>
+          Read More
+        </button>
+      </a>
+    </div>
+  </article>
+
+
+        </div>
+        <div class="row flex-edges">
+  
+  
 </div>
 
+      </div>
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://note.teio.tk/images/avatar.png?v=1650090043868" class="no-responsive avatar">
+    <div class="text-muted">无敌的帝王传说，即将开演！</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://note.teio.tk/5q2pN37YI/">绕过系统代理使用 Python requests.XXX</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://note.teio.tk/HN4OWCD1g/">Android 原生样式加载框</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://note.teio.tk/vF9bpMdsd/">在 WebView 中获取网页内容 (HTML 代码)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://note.teio.tk/wD98AVhHn/">在 Android 9.0 + 使用 HTTP 请求</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://note.teio.tk/-Iv7hAbF0/">在 Android 6.0 + 实现动态申请权限</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://note.teio.tk/kji6uUDsR/" class="badge secondary">
+          Python
+        </a>
+      
+        <a href="https://note.teio.tk/Zgzd5BMsQ/" class="badge secondary">
+          Android
+        </a>
+      
+        <a href="https://note.teio.tk/sWlrIgaOzy/" class="badge success">
+          Java
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Tokai Teio | <a class="rss" href="https://note.teio.tk/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
 
     </div>
-    <script type="application/javascript">
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
 
 hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
 
 </script>
 
