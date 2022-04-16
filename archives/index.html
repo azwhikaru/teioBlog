@@ -1,119 +1,165 @@
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+<meta charset="utf-8" >
+
 <title>NTBO</title>
-<link rel="shortcut icon" href="https://note.teio.tk/favicon.ico?v=1650089748830">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<meta name="description" content="无敌的帝王传说，即将开演！">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://note.teio.tk/favicon.ico?v=1650089849725">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://note.teio.tk/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="NTBO - Atom Feed" href="https://note.teio.tk/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="无敌的帝王传说，即将开演！" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://note.teio.tk">
-  <img class="avatar" src="https://note.teio.tk/images/avatar.png?v=1650089748830" alt="">
-  </a>
-  <h1 class="site-title">
-    NTBO
-  </h1>
-  <p class="site-description">
-    无敌的帝王传说，即将开演！
-  </p>
-  <div class="menu-container">
-    
-  </div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://note.teio.tk">
+        <img class="avatar" src="https://note.teio.tk/images/avatar.png?v=1650089849725" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://note.teio.tk">
+        <h1 class="site-title">NTBO</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
   </div>
 </div>
 
-    
-        
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+    </div>
+  </div>
+</transition>
+
+
+        <div class="content-container">
+          
+          
 
 <div class="archives-container">
   
     <h2 class="year">2022</h2>
     
       
-        <a href="https://note.teio.tk/5q2pN37YI/" class="post">
-          <h2 class="post-title">
-            绕过系统代理使用 Python requests.XXX
-          </h2>
-          <div class="time">2022-03-07</div>
-        </a>
+        <article class="post">
+          <a href="https://note.teio.tk/5q2pN37YI/">
+            <h2 class="post-title">
+              绕过系统代理使用 Python requests.XXX
+              <small>2022-03-07</small>
+            </h2>
+          </a>
+        </article>
       
     
       
-        <a href="https://note.teio.tk/HN4OWCD1g/" class="post">
-          <h2 class="post-title">
-            Android 原生样式加载框
-          </h2>
-          <div class="time">2022-03-05</div>
-        </a>
+        <article class="post">
+          <a href="https://note.teio.tk/HN4OWCD1g/">
+            <h2 class="post-title">
+              Android 原生样式加载框
+              <small>2022-03-05</small>
+            </h2>
+          </a>
+        </article>
       
     
       
-        <a href="https://note.teio.tk/vF9bpMdsd/" class="post">
-          <h2 class="post-title">
-            在 WebView 中获取网页内容 (HTML 代码)
-          </h2>
-          <div class="time">2022-03-05</div>
-        </a>
+        <article class="post">
+          <a href="https://note.teio.tk/vF9bpMdsd/">
+            <h2 class="post-title">
+              在 WebView 中获取网页内容 (HTML 代码)
+              <small>2022-03-05</small>
+            </h2>
+          </a>
+        </article>
       
     
       
-        <a href="https://note.teio.tk/wD98AVhHn/" class="post">
-          <h2 class="post-title">
-            在 Android 9.0 + 使用 HTTP 请求
-          </h2>
-          <div class="time">2022-03-05</div>
-        </a>
+        <article class="post">
+          <a href="https://note.teio.tk/wD98AVhHn/">
+            <h2 class="post-title">
+              在 Android 9.0 + 使用 HTTP 请求
+              <small>2022-03-05</small>
+            </h2>
+          </a>
+        </article>
       
     
       
-        <a href="https://note.teio.tk/-Iv7hAbF0/" class="post">
-          <h2 class="post-title">
-            在 Android 6.0 + 实现动态申请权限
-          </h2>
-          <div class="time">2022-03-05</div>
-        </a>
+        <article class="post">
+          <a href="https://note.teio.tk/-Iv7hAbF0/">
+            <h2 class="post-title">
+              在 Android 6.0 + 实现动态申请权限
+              <small>2022-03-05</small>
+            </h2>
+          </a>
+        </article>
       
     
   
 </div>
 
-    
-        <div class="pagination-container">
-  
-  
-</div>
 
-    
+        </div>
+
         <div class="site-footer">
-  Tokai Teio
-  <a class="rss" href="https://note.teio.tk/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
+  <div class="slogan">无敌的帝王传说，即将开演！</div>
+  <div class="social-container">
+    
+      
+        <a href="https://www.github.com/azwhikaru" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Tokai Teio | <a class="rss" href="https://note.teio.tk/atom.xml" target="_blank">RSS</a>
 </div>
+
 
       </div>
+      <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
     </div>
   </body>
 </html>
