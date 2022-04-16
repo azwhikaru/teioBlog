@@ -1,0 +1,228 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>在 Android 6.0 + 实现动态申请权限 | Notes</title>
+<link rel="shortcut icon" href="https://note.teio.tk/favicon.ico?v=1650092824663">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://note.teio.tk/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="在 Android 6.0 + 实现动态申请权限 | Notes - Atom Feed" href="https://note.teio.tk/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+在 AndroidManifest.xml 定义所需权限
+
+&lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;
+&l..." />
+    <meta name="keywords" content="Android,Java" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://note.teio.tk">
+  <img class="avatar" src="https://note.teio.tk/images/avatar.png?v=1650092824663" alt="">
+  </a>
+  <h1 class="site-title">
+    Notes
+  </h1>
+  <p class="site-description">
+    Write and Write
+  </p>
+  <div class="menu-container">
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              在 Android 6.0 + 实现动态申请权限
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-03-05
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://note.teio.tk/Zgzd5BMsQ/" class="post-tag">
+                  # Android
+                </a>
+              
+                <a href="https://note.teio.tk/sWlrIgaOzy/" class="post-tag">
+                  # Java
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <ul>
+<li>在 <code>AndroidManifest.xml</code> 定义所需权限</li>
+</ul>
+<pre><code class="language-xml">&lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;
+&lt;uses-permission android:name=&quot;android.permission.CHANGE_WIFI_STATE&quot;/&gt;
+&lt;uses-permission android:name=&quot;android.permission.ACCESS_COARSE_LOCATION&quot;/&gt;
+&lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot;/&gt;
+</code></pre>
+<ul>
+<li>然后在启动 Activity 创建变量，其中字符串数组内为需要的所有权限</li>
+</ul>
+<pre><code class="language-java">private static final String[] REQUEST_PERMISSIONS = {Manifest.permission.ACCESS_WIFI_STATE,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
+private static final int REQUEST_PERMISSIONS_CODE = 1;
+</code></pre>
+<ul>
+<li>请求权限</li>
+</ul>
+<pre><code class="language-java">private void getRequestPermission() {
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.M) {
+        ActivityCompat.requestPermissions(MainActivity.this,REQUEST_PERMISSIONS,REQUEST_PERMISSIONS_CODE);
+    }
+} // API 是否高于 Android 6.0 （需要动态申请）
+
+@Override
+public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    switch (requestCode) {
+        case REQUEST_PERMISSIONS_CODE:
+            // 第一次权限请求失败
+            if (grantResults.length == REQUEST_PERMISSIONS.length) {
+                for (int result : grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        // 弹出对话框引导设置
+                        showDialog();
+                        Toast.makeText(MainActivity.this, &quot;请求权限被拒绝&quot;, Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                }
+            } else {
+                Toast.makeText(MainActivity.this, &quot;已授权&quot;, Toast.LENGTH_LONG).show();
+            }
+            break;
+    }
+} // 第一次弹出申请
+
+private void showDialog(){
+    AlertDialog dialog = new AlertDialog.Builder(this)
+            .setMessage(&quot;未授予本程序运行所需的权限，请去设置内授予&quot;)
+            .setPositiveButton(&quot;好&quot;, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    goToAppSetting();
+                }
+            })
+            .setNegativeButton(&quot;取消&quot;, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            })
+            .setCancelable(false)
+            .show();
+} // 如果第一次申请失败
+
+private void goToAppSetting(){
+    Intent intent = new Intent();
+    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+    Uri uri = Uri.fromParts(&quot;package&quot;, getPackageName(), null);
+    intent.setData(uri);
+    startActivity(intent);
+} // 跳转到当前应用的设置界面 （手工给予）
+</code></pre>
+<ul>
+<li>最后在 <code>setContentView()</code> 后面调用 <code>getRequestPermission()</code> 即可</li>
+</ul>
+<pre><code class="language-java">@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.first_activity);
+
+    // 获取需要的权限
+    getRequestPermission();
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Tokai Teio
+  <a class="rss" href="https://note.teio.tk/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

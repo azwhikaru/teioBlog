@@ -1,0 +1,201 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>缩小 VMware 虚拟磁盘分配的空间 | Notes</title>
+<link rel="shortcut icon" href="https://note.teio.tk/favicon.ico?v=1650092824663">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://note.teio.tk/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="缩小 VMware 虚拟磁盘分配的空间 | Notes - Atom Feed" href="https://note.teio.tk/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="今天脑子一热又开始折腾网心云，安装好了官方的 VMware 镜像，  
+结果发现把磁盘全部分到系统盘了，现在需要缩小系统盘，再加一块数据盘进去。
+
+虚拟机目录下只有一个 4GB 左右的 vmdk 文件，现在将其拆分:
+
+进入 VMware ..." />
+    <meta name="keywords" content="Linux,VMware" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://note.teio.tk">
+  <img class="avatar" src="https://note.teio.tk/images/avatar.png?v=1650092824663" alt="">
+  </a>
+  <h1 class="site-title">
+    Notes
+  </h1>
+  <p class="site-description">
+    Write and Write
+  </p>
+  <div class="menu-container">
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              缩小 VMware 虚拟磁盘分配的空间
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-04-16
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://note.teio.tk/n2WGZoIvt/" class="post-tag">
+                  # Linux
+                </a>
+              
+                <a href="https://note.teio.tk/gJgpHk4c0h/" class="post-tag">
+                  # VMware
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <pre><code>今天脑子一热又开始折腾网心云，安装好了官方的 VMware 镜像，  
+结果发现把磁盘全部分到系统盘了，现在需要缩小系统盘，再加一块数据盘进去。
+</code></pre>
+<p>虚拟机目录下只有一个 4GB 左右的 vmdk 文件，现在将其拆分:</p>
+<ul>
+<li>进入 VMware 安装目录，打开命令提示符或者 PowerShell;</li>
+<li>运行 <code>vmware-vdiskmanager -r ‪&lt;vmdk 路径&gt; -t 1 &lt;vmdk-new 路径&gt;</code>;</li>
+<li>例如 <code>vmware-vdiskmanager -r ‪D:\VMware\OneThing.vmdk -t 1 D:\VMware\OneThing-new.vmdk</code>;</li>
+<li>等待程序运行完成，再次查看虚拟机目录，可以看到多出了很多小的 vmdk，后缀是 <code>s00x.vmdk</code>;</li>
+<li>删除旧的独立的大 vmdk (同上 <code>‪D:\VMware\OneThing.vmdk</code>)，将新的 vmdk-new 重命名为旧的名称;</li>
+<li>用编辑工具打开新的 vmdk，可以看到类似如下的部分:</li>
+</ul>
+<pre><code># Extent description
+RW 14417920 SPARSE &quot;OneThing-s001.vmdk&quot;
+RW 14417920 SPARSE &quot;OneThing-s002.vmdk&quot;
+RW 14417920 SPARSE &quot;OneThing-s003.vmdk&quot;
+RW 14417920 SPARSE &quot;OneThing-s004.vmdk&quot;
+RW 14417920 SPARSE &quot;OneThing-s005.vmdk&quot;
+RW 14417920 SPARSE &quot;OneThing-s006.vmdk&quot;
+RW 14417920 SPARSE &quot;OneThing-s007.vmdk&quot;
+RW 14417920 SPARSE &quot;OneThing-s008.vmdk&quot;
+RW 14417920 SPARSE &quot;OneThing-s009.vmdk&quot;
+RW 14417920 SPARSE &quot;OneThing-s010.vmdk&quot;
+...
+</code></pre>
+<ul>
+<li>可能实际看到的比上面的还多，这里只展示了部分。</li>
+</ul>
+<p>一共有 32 个 <strong>簇大小</strong> 为 <strong>14417920</strong> 的文件，使用这个公式可以得到我的总大小为:</p>
+<ul>
+<li>32 × 14417920 / 2 / 1024 / 1024 = <strong>220 GB</strong></li>
+</ul>
+<p>我只想给这块系统盘保留 20 GB 左右的空间 (视情况而定，可以更小)<br>
+打开 <code>虚拟机设置 - 硬盘</code> 查看系统盘当前占用的空间，也就是当前大小，<br>
+我这里是 1.9 GB，分配 20 GB 只多不少。</p>
+<p>计算:</p>
+<ul>
+<li>20 / (14417920 / 2 / 1024 / 1024) ≈ 3</li>
+</ul>
+<p>所以，这里删除 <code>004 - 032</code> 的部分，<br>
+只保留前三行，<br>
+修改后的磁盘大小为:</p>
+<ul>
+<li>3 × 14417920 / 2 / 1024 / 1024 = <strong>20.625 GB</strong></li>
+</ul>
+<blockquote>
+<p>如果需要精准调整到整数，可以调整簇大小</p>
+</blockquote>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://note.teio.tk/post/5q2pN37YI/">
+              <h3 class="post-title">
+                绕过系统代理使用 Python requests.XXX
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Tokai Teio
+  <a class="rss" href="https://note.teio.tk/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

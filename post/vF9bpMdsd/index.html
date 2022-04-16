@@ -1,0 +1,244 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>在 WebView 中获取网页内容 (HTML 代码) | Notes</title>
+<link rel="shortcut icon" href="https://note.teio.tk/favicon.ico?v=1650092824663">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://note.teio.tk/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="在 WebView 中获取网页内容 (HTML 代码) | Notes - Atom Feed" href="https://note.teio.tk/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+在 Layout 中创建一个 WebView
+在调用 WebView 的方法前加
+
+@SuppressLint({&quot;JavascriptInterface&quot;, &quot;SetJavaScriptEnabled&qu..." />
+    <meta name="keywords" content="Android,Java" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://note.teio.tk">
+  <img class="avatar" src="https://note.teio.tk/images/avatar.png?v=1650092824663" alt="">
+  </a>
+  <h1 class="site-title">
+    Notes
+  </h1>
+  <p class="site-description">
+    Write and Write
+  </p>
+  <div class="menu-container">
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              在 WebView 中获取网页内容 (HTML 代码)
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-03-05
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://note.teio.tk/Zgzd5BMsQ/" class="post-tag">
+                  # Android
+                </a>
+              
+                <a href="https://note.teio.tk/sWlrIgaOzy/" class="post-tag">
+                  # Java
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <ul>
+<li>在 Layout 中创建一个 WebView</li>
+<li>在调用 WebView 的方法前加</li>
+</ul>
+<pre><code class="language-java">@SuppressLint({&quot;JavascriptInterface&quot;, &quot;SetJavaScriptEnabled&quot;, &quot;AddJavascriptInterface&quot;})
+WebView webView;
+</code></pre>
+<ul>
+<li>调用 WebView</li>
+</ul>
+<pre><code class="language-java">webView = (WebView)findViewById(R.id.webview);
+webView.getSettings().setJavaScriptEnabled(true);
+webView.addJavascriptInterface(new InJavaScriptLocalObj(), &quot;local_obj&quot;);
+webView.setWebViewClient(new MyWebViewClient());
+webView.loadUrl(&quot;https://azwhikaru.github.io/&quot;);
+</code></pre>
+<ul>
+<li>调用 WebView Client</li>
+</ul>
+<pre><code class="language-java">final class MyWebViewClient extends WebViewClient{
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            Log.d(&quot;WebView&quot;,&quot;onPageStarted&quot;);
+            super.onPageStarted(view, url, favicon);
+        }
+        public void onPageFinished(WebView view, String url) {
+            Log.d(&quot;WebView&quot;,&quot;onPageFinished &quot;);
+            view.loadUrl(&quot;javascript:window.local_obj.showSource('&lt;head&gt;'+&quot; +
+                    &quot;document.getElementsByTagName('html')[0].innerHTML+'&lt;/head&gt;');&quot;);
+            super.onPageFinished(view, url);
+        }
+    }
+</code></pre>
+<ul>
+<li>打印源码</li>
+</ul>
+<pre><code class="language-java">final class InJavaScriptLocalObj {
+        @JavascriptInterface
+        @SuppressWarnings(&quot;unused&quot;)
+        public void showSource(String html) {
+            Log.d(&quot;HTML&quot;, html);
+        }
+    }
+</code></pre>
+<ul>
+<li>完整代码</li>
+</ul>
+<pre><code class="language-java">public class MainActivity extends AppCompatActivity {
+    @SuppressLint({&quot;JavascriptInterface&quot;, &quot;SetJavaScriptEnabled&quot;, &quot;AddJavascriptInterface&quot;})
+    WebView webView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.first_activity);
+
+        webView = (WebView)findViewById(R.id.webview);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new InJavaScriptLocalObj(), &quot;local_obj&quot;);
+        webView.setWebViewClient(new MyWebViewClient());
+        webView.loadUrl(&quot;https://azwhikaru.github.io/&quot;);
+    }
+
+    final class MyWebViewClient extends WebViewClient{
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            Log.d(&quot;WebView&quot;,&quot;onPageStarted&quot;);
+            super.onPageStarted(view, url, favicon);
+        }
+        public void onPageFinished(WebView view, String url) {
+            Log.d(&quot;WebView&quot;,&quot;onPageFinished &quot;);
+            view.loadUrl(&quot;javascript:window.local_obj.showSource('&lt;head&gt;'+&quot; +
+                    &quot;document.getElementsByTagName('html')[0].innerHTML+'&lt;/head&gt;');&quot;);
+            super.onPageFinished(view, url);
+        }
+    }
+
+    final class InJavaScriptLocalObj {
+        @JavascriptInterface
+        @SuppressWarnings(&quot;unused&quot;)
+        public void showSource(String html) {
+            Log.d(&quot;HTML&quot;, html);
+        }
+    }
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://note.teio.tk/post/wD98AVhHn/">
+              <h3 class="post-title">
+                在 Android 9.0 + 使用 HTTP 请求
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Tokai Teio
+  <a class="rss" href="https://note.teio.tk/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
