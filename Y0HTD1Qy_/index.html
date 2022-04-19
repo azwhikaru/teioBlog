@@ -2,18 +2,19 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>绕过系统代理使用 Python requests.XXX | Notes</title>
+<title>一些哔哩哔哩的 API | Notes</title>
 <link rel="shortcut icon" href="https://note.teio.tk/favicon.ico?v=1650376760227">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://note.teio.tk/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="绕过系统代理使用 Python requests.XXX | Notes - Atom Feed" href="https://note.teio.tk/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="一些哔哩哔哩的 API | Notes - Atom Feed" href="https://note.teio.tk/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="bypass_systemProxy = { &quot;http&quot;: None, &quot;https&quot;: None}
-requests.get(&quot;https://azwhikaru.github.io/&..." />
-    <meta name="keywords" content="Python" />
+    <meta name="description" content="
+登录的 URL: https://passport.bilibili.com/ajax/miniLogin/minilogin
+重定向到 https://passport.bilibili.com/ajax/miniLogin/redir..." />
+    <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -51,27 +52,66 @@ requests.get(&quot;https://azwhikaru.github.io/&..." />
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              绕过系统代理使用 Python requests.XXX
+              一些哔哩哔哩的 API
             </h2>
             <div class="post-info">
               <span>
-                2022-03-07
+                2022-04-19
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
-              
-                <a href="https://note.teio.tk/kji6uUDsR/" class="post-tag">
-                  # Python
-                </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <pre><code class="language-python">bypass_systemProxy = { &quot;http&quot;: None, &quot;https&quot;: None}
-requests.get(&quot;https://azwhikaru.github.io/&quot;, proxies=bypass_systemProxy)
-</code></pre>
+                <ul>
+<li>登录的 URL: https://passport.bilibili.com/ajax/miniLogin/minilogin</li>
+<li>重定向到 https://passport.bilibili.com/ajax/miniLogin/redirect 则为登录成功</li>
+<li>取回的 Cookie 中的 bili_jct 即为 csrf</li>
+</ul>
+<ul>
+<li>点赞:</li>
+</ul>
+<ul>
+<li>URL: https://api.bilibili.com/x/web-interface/archive/like</li>
+<li>类型: POST</li>
+<li>需要 Cookie: 是</li>
+<li>返回值类型: JSON</li>
+<li>参数: aid (稿件 AV 号)、like (1 为点赞，2 为取消点赞)、csrf (见上)</li>
+</ul>
+<ul>
+<li>个人信息获取:</li>
+</ul>
+<ul>
+<li>URL: https://api.bilibili.com/x/web-interface/nav</li>
+<li>类型: GET</li>
+<li>需要 Cookie: 是</li>
+<li>返回值类型: JSON</li>
+<li>参数: 无</li>
+</ul>
+<ul>
+<li>搜索:</li>
+</ul>
+<ul>
+<li>URL: https://api.bilibili.com/x/web-interface/search/type</li>
+<li>类型: GET</li>
+<li>需要 Cookie: 否</li>
+<li>返回值类型: JSON</li>
+<li>参数: keyword (关键词)、search_type (video)、page (分页)、order (排序方式)<br>
+Order 参考: default (综合)、pubdate (发布日期倒序)、senddate (修改日期倒序)、id (投稿 ID 倒序)</li>
+</ul>
+<ul>
+<li>评论:</li>
+</ul>
+<ul>
+<li>URL: https://api.bilibili.com/x/v2/reply/add</li>
+<li>类型: POST</li>
+<li>需要 Cookie: 是</li>
+<li>返回值类型: JSON</li>
+<li>参数: oid (稿件 AV 号)、message (UTF-8 要发送的文本)、csrf (见上)</li>
+</ul>
 
               </div>
               <div class="toc-container">
@@ -84,9 +124,9 @@ requests.get(&quot;https://azwhikaru.github.io/&quot;, proxies=bypass_systemProx
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://note.teio.tk/HN4OWCD1g/">
+            <a href="https://note.teio.tk/xD98AVhHn/">
               <h3 class="post-title">
-                Android 原生样式加载框
+                缩小 VMware 虚拟磁盘分配的空间
               </h3>
             </a>
           </div>
